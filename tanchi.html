@@ -8,6 +8,7 @@
 	}
 	</style>
 	<script type="text/javascript">
+	    var fx=39;
 	    var gezi=new Array(24);
 	    for(var i=0;i<24;i++){
 	    	gezi[i]=new Array(24);
@@ -34,31 +35,209 @@
     	r.appendChild(s);
 		}
 		window.onload=TH;
+		document.onkeydown=function(event){
+			var e = event || window.event || arguments.callee.caller.arguments[0];
+			if(e && e.keyCode==38){ // 按 up
+                if (fx!=40&&fx!=38) {
+                 	fx=38;
+                }
+            }
+            if(e && e.keyCode==40){ // 按 down
+                if (fx!=40&&fx!=38) {
+                 	fx=40;
+                }
+            }            
+             if(e && e.keyCode==37){ // left
+                if(fx!=39&&fx!=37){
+            		fx=37;
+            	}
+            }
+            if (e && e.keyCode==39){ // right
+            	if(fx!=39&&fx!=37){
+            		fx=39;
+            	}
+            }
+		}
 	</script>
 </head>
 <body id="w">
 <input type="button" value="uu" id="pp">
 <script type="text/javascript">
 		var snack=new Array([0,1],[0,0]);
+		var food=new Array([12,12]);
+		var tab=0;
+		var foot0,foot1;
 		function createsnack(){
 				gezi[snack[0][0]][snack[0][1]].style.background="#000";
 				gezi[snack[1][0]][snack[1][1]].style.background="#000";
+				gezi[food[0][0]][food[0][1]].style.background="green";
 				move();
+		}
+		function gameover(){
+			alert("GAME OVER!!!");
+		}
+		function rt(y,u){
+			for (var i = 0; i <snack.length-1; i++) {
+				if(y==snack[i][0]&&u==snack[i][1]){
+					return true;
+				}
+			}
+			return false;
+		}
+		function panding(){
+			if (fx==39) {
+				var head0,head1;
+				head0=snack[0][0];
+				head1=snack[0][1]+1;
+				if (head1>=24) {
+					gameover();
+				}
+				if(rt(head0,head1)==true){
+					gameover();
+				}
+				if (food[0][0]==head0&&food[0][1]==head1){
+					food[0][0]=Math.floor(Math.random()*24);
+					food[0][1]=Math.floor(Math.random()*24);
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1;
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0;
+				}
+			}
+			if (fx==37) {
+				var head0,head1;
+				head0=snack[0][0];
+				head1=snack[0][1]-1;
+				if (head1<0) {
+					gameover();
+				}
+   				if(rt(head0,head1)==true){
+					gameover();
+				}
+				if (food[0][0]==head0&&food[0][1]==head1){
+					food[0][0]=Math.floor(Math.random()*24);
+					food[0][1]=Math.floor(Math.random()*24);
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0
+				}
+			}
+			if (fx==38) {
+				var head0,head1;
+				head0=snack[0][0]-1;
+				head1=snack[0][1];
+				if (head0<0) {
+					gameover();
+				}
+				if(rt(head0,head1)==true){
+					gameover();
+				}
+				if (food[0][0]==head0&&food[0][1]==head1){
+					food[0][0]=Math.floor(Math.random()*24);
+					food[0][1]=Math.floor(Math.random()*24);
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1;
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0;
+				}
+			}
+			if (fx==40) {
+				var head0,head1;
+				head0=snack[0][0]+1;
+				head1=snack[0][1];
+				if (head0>=24) {
+					gameover();
+				}
+				if(rt(head0,head1)==true){
+					gameover();
+				}
+				if (food[0][0]==head0&&food[0][1]==head1){
+					food[0][0]=Math.floor(Math.random()*24);
+					food[0][1]=Math.floor(Math.random()*24);
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1;
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0;
+				}
+			}
 		}
 		var button=document.getElementById('pp');
 		button.onclick=createsnack;
 		function move(){
-			for(var i=snack.length-1;i>0;i--){
-				snack[i][0]=snack[i-1][0];
-				snack[i][1]=snack[i-1][1];
-			}
-				snack[0][1]=snack[0][1]+1;
+				panding();
 				show();
 				setTimeout("move()",500);
 		}
 		function show(){
 				for(var i=0;i<snack.length;i++){
 					gezi[snack[i][0]][snack[i][1]].style.background="#000";
+				}
+				if (tab==0) {
+					gezi[foot0][foot1].style.background="#ccff00";
+				}
+				if (tab==1) {
+					gezi[food[0][0]][food[0][1]].style.background="green";
 				}
 		}
 </script>
