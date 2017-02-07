@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	#pp{
+		width: 60px;
+		height: 80px;
+	}
+	</style>
+	<script type="text/javascript">
+	    var fx=39;
+	    var gezi=new Array(24);
+	    for(var i=0;i<24;i++){
+	    	gezi[i]=new Array(24);
+	    }
+		function TH(){
+    	var r=document.getElementById("w");
+    	var s=document.createElement("table");
+    	s.style.borderCollapse="collapse";
+    	var e=document.createElement("tbody");
+    	for (var i = 0; i < 24; i++) {
+    		var w=document.createElement("tr");
+    			w.style.height="20px";
+    		for(var j=0; j<24; j++) {
+    			var t=document.createElement("td");
+    			t.style.border="1px solid #000";
+    			t.style.width="20px";
+    			t.style.background="#ccff00";
+    			gezi[i][j]=t;
+    			w.appendChild(t);
+    		}
+    		e.appendChild(w);
+    	}
+    	s.appendChild(e);
+    	r.appendChild(s);
+		}
+		window.onload=TH;
+		document.onkeydown=function(event){
+			var e = event || window.event || arguments.callee.caller.arguments[0];
+			if(e && e.keyCode==38){ // 按 up
+                if (fx!=40&&fx!=38) {
+                 	fx=38;
+                }
+            }
+            if(e && e.keyCode==40){ // 按 down
+                if (fx!=40&&fx!=38) {
+                 	fx=40;
+                }
+            }            
+             if(e && e.keyCode==37){ // left
+                if(fx!=39&&fx!=37){
+            		fx=37;
+            	}
+            }
+            if (e && e.keyCode==39){ // right
+            	if(fx!=39&&fx!=37){
+            		fx=39;
+            	}
+            }
+		}
+	</script>
+</head>
+<body id="w">
+<input type="button" value="uu" id="pp">
+<script type="text/javascript">
+		var snack=new Array([0,1],[0,0]);
+		var food=new Array([12,12]);
+		var tab=0;
+		var foot0,foot1;
+		function createsnack(){
+				gezi[snack[0][0]][snack[0][1]].style.background="#000";
+				gezi[snack[1][0]][snack[1][1]].style.background="#000";
+				gezi[food[0][0]][food[0][1]].style.background="green";
+				move();
+		}
+		function panding(){
+			if (fx==39) {
+				var head0,head1;
+				head0=snack[0][0];
+				head1=snack[0][1]+1;
+				if (food[0][0]==head0&&food[0][1]==head1){
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1;
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0;
+				}
+			}
+			if (fx==37) {
+				var head0,head1;
+				head0=snack[0][0];
+				head1=snack[0][1]-1;
+				if (food[0][0]==head0&&food[0][1]==head1){
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0
+				}
+			}
+			if (fx==38) {
+				var head0,head1;
+				head0=snack[0][0]-1;
+				head1=snack[0][1];
+				if (food[0][0]==head0&&food[0][1]==head1){
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1;
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0;
+				}
+			}
+			if (fx==40) {
+				var head0,head1;
+				head0=snack[0][0]+1;
+				head1=snack[0][1];
+				if (food[0][0]==head0&&food[0][1]==head1){
+					snack.push([snack[snack.length-1][0],snack[snack.length-1][1]]);
+					for (var i = snack.length-1; i>0; i--) {
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=1;
+				}
+				else{
+					foot0=snack[snack.length-1][0];
+					foot1=snack[snack.length-1][1];
+					for(var i=snack.length-1;i>0;i--){
+						snack[i][0]=snack[i-1][0];
+						snack[i][1]=snack[i-1][1];
+					}
+					snack[0][0]=head0;
+					snack[0][1]=head1;
+					tab=0;
+				}
+			}
+		}
+		var button=document.getElementById('pp');
+		button.onclick=createsnack;
+		function move(){
+				panding();
+				show();
+				setTimeout("move()",500);
+		}
+		function show(){
+				for(var i=0;i<snack.length;i++){
+					gezi[snack[i][0]][snack[i][1]].style.background="#000";
+				}
+				if (tab==0) {
+					gezi[foot0][foot1].style.background="#ccff00";
+				}
+		}
+</script>
+</body>
+</html>
