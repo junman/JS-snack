@@ -9,6 +9,7 @@
 	</style>
 	<script type="text/javascript">
 	    var fx=39;
+	    var tag=0;
 	    var gezi=new Array(24);
 	    for(var i=0;i<24;i++){
 	    	gezi[i]=new Array(24);
@@ -39,22 +40,35 @@
 			var e = event || window.event || arguments.callee.caller.arguments[0];
 			if(e && e.keyCode==38){ // 按 up
                 if (fx!=40&&fx!=38) {
-                 	fx=38;
+                	if (tag==1) {
+                		fx=38;
+                		tag=0;
+                	}
                 }
             }
             if(e && e.keyCode==40){ // 按 down
                 if (fx!=40&&fx!=38) {
-                 	fx=40;
+                	if(tag==1){
+                		fx=40;
+                		tag=0;
+                	}
                 }
             }            
              if(e && e.keyCode==37){ // left
                 if(fx!=39&&fx!=37){
-            		fx=37;
+                	if (tag==1) {
+                		tag=0;
+                		fx=37;
+                	}
             	}
             }
             if (e && e.keyCode==39){ // right
             	if(fx!=39&&fx!=37){
-            		fx=39;
+            		if (tag==1) {
+             		fx=39;
+             		tag=0;           			
+            		}
+
             	}
             }
 		}
@@ -220,7 +234,9 @@
 					snack[0][1]=head1;
 					tab=0;
 				}
+
 			}
+			tag=1;
 		}
 		var button=document.getElementById('pp');
 		button.onclick=createsnack;
